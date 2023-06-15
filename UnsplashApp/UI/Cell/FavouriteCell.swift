@@ -4,14 +4,6 @@ final class FavouriteCell: UITableViewCell {
     
     static let identifier = String(describing: FavouriteCell.self)
     
-    private let stackView: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .horizontal
-        stack.distribution = .fillEqually
-        
-        return stack
-    }()
-    
     let imageMini: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
@@ -26,6 +18,7 @@ final class FavouriteCell: UITableViewCell {
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 14, weight: .heavy)
         label.numberOfLines = 0
+        label.textAlignment = .left
         
         return label
     }()
@@ -46,18 +39,20 @@ final class FavouriteCell: UITableViewCell {
     }
     
     private func setup() {
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         imageMini.translatesAutoresizingMaskIntoConstraints = false
         nameAuthor.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(stackView)
-        stackView.addArrangedSubview(imageMini)
-        stackView.addArrangedSubview(nameAuthor)
-        
+        contentView.addSubview(imageMini)
+        contentView.addSubview(nameAuthor)
+
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            imageMini.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            imageMini.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            imageMini.widthAnchor.constraint(equalTo: contentView.heightAnchor),
+            imageMini.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
+            nameAuthor.leftAnchor.constraint(equalTo: imageMini.rightAnchor, constant: 10),
+            nameAuthor.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -50),
+            nameAuthor.topAnchor.constraint(equalTo: contentView.topAnchor),
+            nameAuthor.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
     }
 }
