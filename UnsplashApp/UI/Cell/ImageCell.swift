@@ -12,6 +12,8 @@ final class ImageCell: UICollectionViewCell {
         return imageView
     }()
 
+    private var imageURLString: String?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(imageView)
@@ -24,23 +26,28 @@ final class ImageCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         imageView.frame = contentView.bounds
+        layer.masksToBounds = true
+        layer.cornerRadius = 16
+    }
+
+    func configure(with imageURLString: String) {
+        self.imageURLString = imageURLString
+
+        DispatchQueue.global().async {
+            if let imageURL = URL(string: imageURLString),
+               let imageData = try? Data(contentsOf: imageURL),
+               let image = UIImage(data: imageData) {
+                DispatchQueue.main.async {
+                    if self.imageURLString == imageURLString {
+                        self.imageView.image = image
+                    }
+                }
+            }
+        }
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
         imageView.image = nil
-    }
-
-    func configure(with url: String) {
-        guard let imageURL = URL(string: url) else { return }
-        
-        let task = URLSession.shared.dataTask(with: imageURL) { [weak self] data, _, error in
-            guard let data = data, error == nil else { return }
-            DispatchQueue.main.async {
-                let image = UIImage(data: data)
-                self?.imageView.image = image
-            }
-        }
-        task.resume()
     }
 }

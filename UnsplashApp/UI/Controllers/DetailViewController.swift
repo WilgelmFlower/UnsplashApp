@@ -10,13 +10,14 @@ final class DetailViewController: UIViewController {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 16
 
         return imageView
     }()
 
     private let nameAuthor: UILabel = {
         let label = UILabel()
-        label.textAlignment = .center
+        label.textAlignment = .left
         label.font = .systemFont(ofSize: 18, weight: .heavy)
 
         return label
@@ -24,7 +25,7 @@ final class DetailViewController: UIViewController {
 
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.textAlignment = .center
+        label.textAlignment = .left
         label.font = .systemFont(ofSize: 16, weight: .regular)
 
         return label
@@ -32,7 +33,7 @@ final class DetailViewController: UIViewController {
 
     private let locationLabel: UILabel = {
         let label = UILabel()
-        label.textAlignment = .center
+        label.textAlignment = .left
         label.font = .systemFont(ofSize: 16, weight: .regular)
         label.numberOfLines = 0
 
@@ -41,7 +42,7 @@ final class DetailViewController: UIViewController {
 
     private let totalLikesLabel: UILabel = {
         let label = UILabel()
-        label.textAlignment = .center
+        label.textAlignment = .left
         label.font = .systemFont(ofSize: 16, weight: .regular)
 
         return label
@@ -49,7 +50,6 @@ final class DetailViewController: UIViewController {
 
     private lazy var likeButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Добавить в избранное", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .blue.withAlphaComponent(0.6)
         button.layer.cornerRadius = 16
@@ -63,14 +63,13 @@ final class DetailViewController: UIViewController {
         UserDefaults.standard.set(isLiked, forKey: "isLiked\(id ?? "")")
         updateLikeButtonTitle()
 
-        guard let tabBarFav = tabBarController as? MainTabBarController else { return }
         let selectedModel = resultsDetail.first { $0.id == id }
         if let selectedModel = selectedModel {
             if isLiked {
-                tabBarFav.configure(items: selectedModel)
+                HelperData.shared.fetchedData.append(selectedModel)
                 showAlert(isLiked: true)
             } else {
-                tabBarFav.removeModel(withId: selectedModel.id)
+                HelperData.shared.fetchedData.removeAll(where: { $0.id == id })
                 showAlert(isLiked: false)
             }
         }
@@ -130,24 +129,24 @@ final class DetailViewController: UIViewController {
 
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            imageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5),
+            imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            imageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3),
 
             nameAuthor.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
-            nameAuthor.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            nameAuthor.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
             nameAuthor.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
 
             dateLabel.topAnchor.constraint(equalTo: nameAuthor.bottomAnchor, constant: 10),
-            dateLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            dateLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
             dateLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
 
             locationLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 10),
-            locationLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            locationLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
             locationLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
 
             totalLikesLabel.topAnchor.constraint(equalTo: locationLabel.bottomAnchor, constant: 10),
-            totalLikesLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            totalLikesLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
             totalLikesLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
 
             likeButton.topAnchor.constraint(equalTo: totalLikesLabel.bottomAnchor, constant: 20),

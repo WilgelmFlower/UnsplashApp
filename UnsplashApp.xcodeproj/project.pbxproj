@@ -13,6 +13,7 @@
 		ED0D70242A370DC600FA295F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0D70232A370DC600FA295F /* ViewController.swift */; };
 		ED0D70292A370DC700FA295F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED0D70282A370DC700FA295F /* Assets.xcassets */; };
 		ED0D702C2A370DC700FA295F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED0D702A2A370DC700FA295F /* LaunchScreen.storyboard */; };
+		EDB3DEA02A444475004F0BB2 /* HelperData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB3DE9F2A444475004F0BB2 /* HelperData.swift */; };
 		EDCC05DD2A37119E00762CBC /* FavouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCC05DC2A37119D00762CBC /* FavouriteViewController.swift */; };
 		EDCC05DF2A371F7B00762CBC /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCC05DE2A371F7B00762CBC /* APIManager.swift */; };
 		EDCC05E12A37211200762CBC /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCC05E02A37211200762CBC /* PhotoModel.swift */; };
@@ -46,6 +47,7 @@
 		ED0D70282A370DC700FA295F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ED0D702B2A370DC700FA295F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED0D702D2A370DC700FA295F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EDB3DE9F2A444475004F0BB2 /* HelperData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperData.swift; sourceTree = "<group>"; };
 		EDCC05DC2A37119D00762CBC /* FavouriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteViewController.swift; sourceTree = "<group>"; };
 		EDCC05DE2A371F7B00762CBC /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		EDCC05E02A37211200762CBC /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
@@ -114,6 +116,14 @@
 			path = UnsplashApp;
 			sourceTree = "<group>";
 		};
+		EDB3DE9E2A444461004F0BB2 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				EDB3DE9F2A444475004F0BB2 /* HelperData.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		EDCC05E62A389A5100762CBC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -152,6 +162,7 @@
 		EDCC05EA2A389AA000762CBC /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				EDB3DE9E2A444461004F0BB2 /* Helpers */,
 				EDCC05EB2A389AA600762CBC /* Cell */,
 				EDCC05EC2A389AAC00762CBC /* Controllers */,
 				EDCC05F62A3A3B9300762CBC /* TabBar */,
@@ -305,6 +316,7 @@
 				EDCC05DD2A37119E00762CBC /* FavouriteViewController.swift in Sources */,
 				EDCC05F52A3A3AE300762CBC /* MainTabBarController.swift in Sources */,
 				ED0D70242A370DC600FA295F /* ViewController.swift in Sources */,
+				EDB3DEA02A444475004F0BB2 /* HelperData.swift in Sources */,
 				EDCC05DF2A371F7B00762CBC /* APIManager.swift in Sources */,
 				EDCC05F02A39A7A800762CBC /* FavouriteCell.swift in Sources */,
 				ED0D70202A370DC600FA295F /* AppDelegate.swift in Sources */,

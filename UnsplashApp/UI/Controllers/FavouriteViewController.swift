@@ -27,12 +27,13 @@ final class FavouriteViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        resultsTab = HelperData.shared.fetchedData
         tableView.reloadData()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "backgroundColor")
         setup()
     }
 
@@ -67,7 +68,7 @@ extension FavouriteViewController: UITableViewDataSource {
         let selectedIndex = resultsTab[indexPath.row]
         cell.nameAuthor.text = "Author name - \(selectedIndex.user.username)"
 
-        if let imageURL = URL(string: selectedIndex.urls.regular) {
+        if let imageURL = URL(string: selectedIndex.urls.small) {
             DispatchQueue.global().async {
                 if let imageData = try? Data(contentsOf: imageURL) {
                     DispatchQueue.main.async {
@@ -85,7 +86,7 @@ extension FavouriteViewController: UITableViewDelegate {
         let detailVC = DetailViewController()
         let indexCurrent = resultsTab[indexPath.row]
         detailVC.resultsDetail = resultsTab
-        detailVC.configure(imageURL: indexCurrent.urls.regular,
+        detailVC.configure(imageURL: indexCurrent.urls.small,
                            authorName: indexCurrent.user.username,
                            date: indexCurrent.created_at,
                            location: indexCurrent.user.location,

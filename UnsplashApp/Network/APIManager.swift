@@ -7,17 +7,25 @@ private enum NetworkConstants {
 
 class APIManager {
     static let shared = APIManager()
-    private let perPage = 30
+    private let perPage = 10
 
-    func fetchPhotos<T: Decodable>(withQuery query: String? = nil, completion: @escaping (Result<T, Error>) -> Void) {
-        var urlString = "\(NetworkConstants.baseURL)/photos/?client_id=\(NetworkConstants.clientID)&per_page=\(perPage)"
+    func fetchPhotos<T: Decodable>(withQuery query: String? = nil, page: Int = 0, completion: @escaping (Result<T, Error>) -> Void) {
+        let endpoint: String
+        var parameters: [String: Any] = [
+            "client_id": NetworkConstants.clientID,
+            "per_page": perPage,
+            "page": page
+        ]
 
         if let query = query {
             let encodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-            urlString = "\(NetworkConstants.baseURL)/search/photos?client_id=\(NetworkConstants.clientID)&per_page=\(perPage)&query=\(encodedQuery)"
+            endpoint = "\(NetworkConstants.baseURL)/search/photos"
+            parameters["query"] = encodedQuery
+        } else {
+            endpoint = "\(NetworkConstants.baseURL)/photos"
         }
 
-        AF.request(urlString).validate().responseDecodable(of: T.self) { response in
+        AF.request(endpoint, parameters: parameters, encoding: URLEncoding.default).validate().responseDecodable(of: T.self) { response in
             switch response.result {
             case .success(let result):
                 completion(.success(result))

@@ -2,14 +2,15 @@ import UIKit
 
 class MainTabBarController: UITabBarController {
 
-    var fetchedData = [ResultSearchPhotos]()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupControllers()
     }
 
     private func setupControllers() {
+        let tabBarAppereance = UITabBarAppearance()
+        tabBarAppereance.backgroundColor = UIColor(named: "tabBarColor")
+
         let homeVC = ViewController()
         let favouriteVC = FavouriteViewController()
 
@@ -28,22 +29,5 @@ class MainTabBarController: UITabBarController {
         favouriteVC.tabBarItem = favouriteTabBarItem
 
         self.setViewControllers([homeNavVC, favouriteNavVC], animated: true)
-    }
-
-    func configure(items: ResultSearchPhotos) {
-        fetchedData.append(items)
-        if let favouriteNavVC = self.viewControllers?[1] as? UINavigationController,
-           let favouriteVC = favouriteNavVC.topViewController as? FavouriteViewController {
-            favouriteVC.resultsTab = fetchedData
-        }
-    }
-
-    func removeModel(withId id: String) {
-        fetchedData.removeAll(where: { $0.id == id })
-        if let favoritesVC = viewControllers?[1] as? UINavigationController,
-           let favoritesRootVC = favoritesVC.viewControllers.first as? FavouriteViewController {
-            favoritesRootVC.resultsTab.removeAll(where: { $0.id == id })
-            favoritesRootVC.tableView.reloadData()
-        }
     }
 }
